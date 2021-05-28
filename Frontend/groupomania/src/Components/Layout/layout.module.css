@@ -1,0 +1,23 @@
+:global .container /* Cette classe est accessible dans n'importe quel fichier css */
+{
+    max-width: 100%;
+    width: 1200px;
+    margin: auto;
+}
+
+.Layout
+{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content
+{
+    flex-grow: 1;
+    padding: 2rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

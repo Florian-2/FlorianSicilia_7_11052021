@@ -1,0 +1,163 @@
+.Header
+{
+    min-height: 50px;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10);
+}
+
+.Navigation
+{
+    display: flex;
+}
+
+.NavigationItem
+{
+    list-style: none;
+}
+
+.NavigationItem a
+{
+    display: inline-block;
+    font-size: 1.45rem;
+    font-weight: 400;
+    padding: 3rem 1rem;
+    margin-left: 1rem;
+    color: #404E5C;
+    text-decoration: none;
+
+    position: relative; 
+    transition: color 200ms;
+}
+
+.NavigationItem a::before
+{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: red;
+    transition: width 200ms;
+}
+
+.NavigationItem a:hover:before,
+.NavigationItem a.active:before
+{
+    width: 100%;
+    color: red;
+}
+
+.NavigationItem a:hover
+{
+    color: red;
+}
+
+.NavigationItem a.active
+{
+    color: red;
+}
+
+/* Menu Mobile */
+.hamburger
+{
+    font-size: 2.5rem;
+    position: absolute;
+    right: 2.5rem;
+    cursor: pointer;
+
+    display: none;
+}
+
+.hamburger div
+{
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    border-radius: 3px;
+    background-color: #FF5964;
+    transition: transform 200ms, rotate 200ms;
+}
+
+.hamburger.active .ligne1
+{
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.hamburger.active .ligne2
+{
+    opacity: 0;
+}
+.hamburger.active .ligne3
+{
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+@media screen and (max-width: 750px) 
+{
+    .hamburger
+    {
+        display: block;
+    }
+
+    nav
+    {
+        display: flex;
+        justify-content: center;
+        padding-top: 4rem;
+        position: fixed;
+        z-index: 100;
+        top: 50px;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: #FF5964;
+        transition: right 300ms;
+    }
+
+    nav.active
+    {
+        right: 0;
+        opacity: 1;
+    }
+
+    .Navigation
+    {
+        flex-direction: column;
+        align-items: center;
+        gap: 80px;
+    }
+
+    .NavigationItem a
+    {
+        padding: 1rem;
+    }
+
+    .NavigationItem a::before
+    {
+        height: 2px;
+        background-color: white;
+    }
+
+    .NavigationItem a
+    {
+        color: white;
+        font-size: 1.7rem;
+    }
+
+    .NavigationItem a:hover:before,
+    .NavigationItem a.active:before
+    {
+        width: 100%;
+        background-color: white;
+    }
+
+    .NavigationItem a:hover,
+    .NavigationItem a.active
+    {
+        color: white;
+    }
+
+}
