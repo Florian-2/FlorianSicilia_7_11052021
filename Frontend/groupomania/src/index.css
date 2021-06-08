@@ -5,6 +5,12 @@
 	box-sizing: border-box;
 }
 
+::selection
+{
+	color: black;
+	background-color: #ff5964;
+}
+
 html
 {
 	font-size: 10px;
@@ -13,4 +19,11 @@ html
 body 
 {
 	font-family: 'Open Sans', sans-serif;
+}
+
+div.Toastify .Toastify__toast-body
+{
+	font-size: 1.5rem;
+	color: black;
+	font-weight: bold;
 }

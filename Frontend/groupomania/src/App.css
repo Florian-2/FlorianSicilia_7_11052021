@@ -2,3 +2,90 @@
 {
     height: 100vh;
 }
+
+/* Design global */
+form .form_group label
+{
+    font-size: 1.35rem;
+    font-weight: bold;
+}
+
+form .form_group input,
+form .form_group .textarea
+{
+    font-size: 1.4rem;
+    padding: 0.4rem;
+    border: 2px solid #dae2e5;
+    border-radius: 5px;
+    outline: none;
+}
+
+form .form_group input
+{
+    display: block;
+    width: 100%;
+    height: 4rem;
+    position: relative;
+}
+
+form .form_group input:focus,
+form .form_group .textarea:focus
+{
+    border-color: silver;
+}
+
+form .form_group input::placeholder
+{
+    font-size: 1.4rem;
+}
+
+form .form_group span
+{
+    color: red;
+}
+
+form button
+{
+    border: 2px solid #ff5964;
+
+    padding: 1rem 2rem;
+    font-size: 1.35rem;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+
+    position: relative;
+    z-index: 20;
+}
+
+form button:disabled
+{
+    cursor: not-allowed;
+}
+
+form button:disabled::before
+{
+    display: none;
+}
+
+form button::before
+{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -20;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ff5964;
+    transform: scaleX(0);
+    transform-origin: left; 
+    transition: transform 200ms;
+}
+
+form button:hover:before
+{
+    transform: scale(1);
+}

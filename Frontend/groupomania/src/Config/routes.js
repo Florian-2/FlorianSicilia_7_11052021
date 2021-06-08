@@ -1,6 +1,6 @@
 const routes = 
 {
-    SINGUP: "/singup",
+    SIGNUP: "/signup",
     LOGIN: "/login",
     CHANGEPASSWORD: "/change-password",
     SHOWALLPOST: "/posts",

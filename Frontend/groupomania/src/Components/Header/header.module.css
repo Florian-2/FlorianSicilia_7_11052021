@@ -1,6 +1,11 @@
+:root
+{
+    --link-color: #ff5964;
+}
+
 .Header
 {
-    min-height: 50px;
+    min-height: auto;
     padding: 0 2rem;
     display: flex;
     justify-content: space-between;
@@ -40,7 +45,7 @@
     left: 0;
     width: 0;
     height: 3px;
-    background-color: red;
+    background-color: var(--link-color);
     transition: width 200ms;
 }
 
@@ -48,17 +53,17 @@
 .NavigationItem a.active:before
 {
     width: 100%;
-    color: red;
+    color: var(--link-color);
 }
 
 .NavigationItem a:hover
 {
-    color: red;
+    color: var(--link-color);
 }
 
 .NavigationItem a.active
 {
-    color: red;
+    color: var(--link-color);
 }
 
 /* Menu Mobile */
@@ -66,7 +71,7 @@
 {
     font-size: 2.5rem;
     position: absolute;
-    right: 2.5rem;
+    right: 2rem;
     cursor: pointer;
 
     display: none;
@@ -97,6 +102,11 @@
 
 @media screen and (max-width: 750px) 
 {
+    .Header
+    {
+        padding: 1rem 2rem;
+    }
+
     .hamburger
     {
         display: block;
@@ -159,5 +169,4 @@
     {
         color: white;
     }
-
 }

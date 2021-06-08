@@ -21,7 +21,7 @@ export default function Navigation()
             </li>
 
             <li className={classes.NavigationItem}>
-                <NavLink exact to={routes.SINGUP} activeClassName={classes.active}>Inscription</NavLink>
+                <NavLink exact to={routes.SIGNUP} activeClassName={classes.active}>Inscription</NavLink>
             </li>
 
             <li className={classes.NavigationItem}>

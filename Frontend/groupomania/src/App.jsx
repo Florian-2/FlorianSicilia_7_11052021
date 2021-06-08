@@ -1,26 +1,27 @@
 // Librairies - CSS
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import routes from './Config/routes'
 import './App.css';
 
 // Composants
 import Layout from './Components/Layout/Layout';
-import Singup from './Components/Auth/Singup/Singup';
+import Signup from './Components/Auth/Signup/Signup';
 import Login from './Components/Auth/Login/Login';
-import ShowPosts from './Components/Messages/ShowPosts/ShowPosts';
+import ShowPosts from './Components/Messages/ShowPosts/ContainerPosts';
 import AddPost from './Components/Messages/AddPost/AddPost';
 import Profil from './Components/Profil/Profil';
-
 
 export default function App() 
 {
 	return (
 		<div className="App">
+			
 			<Layout>
+
 				<Switch>
-					<Redirect exact from="/" to={routes.SINGUP} />
-					<Route exact path={routes.SINGUP} component={Singup}/>
+					<Redirect exact from="/" to={routes.SIGNUP} />
+					<Route exact path={routes.SIGNUP} component={Signup}/>
 					<Route exact path={routes.LOGIN} component={Login}/>
 					<Route exact path={routes.CHANGEPASSWORD} render={() => <h1>mot de passe</h1>}/>
 					<Route exact path={routes.SHOWALLPOST} component={ShowPosts}/>
@@ -29,7 +30,9 @@ export default function App()
 					<Route exact path={routes.PROFIL} component={Profil}/>
 					<Route render={() => <h1>Page introuvable</h1>} />
 				</Switch>
+
 			</Layout>
+			
 		</div>
 	);
 }
