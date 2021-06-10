@@ -2,12 +2,18 @@ const { Message } = require('../models');
 const { User } = require('../models');
 const jwt = require('jsonwebtoken');
 
-exports.addPost = (req, res) =>
+const decoedToken = (req) => 
 {
-    // Token
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
     const userId = decodedToken.userId;
+
+    return userId;
+};
+
+exports.addPost = (req, res) =>
+{
+    const userId = decoedToken(req);
 
     User.findOne({ where: { id: userId } })
         .then(user =>
@@ -40,4 +46,12 @@ exports.getAllPosts = (req, res) =>
     })
     .then(allPosts => res.status(200).json({ allPosts }))
     .catch(error => res.status(400).json({ error }))
+}
+
+exports.DeleteOnePost = () =>
+{
+    const userId = decoedToken(req);
+
+    console.log(req.params.id);
+    return res.status(200).json({mess: "OK"})
 }

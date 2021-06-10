@@ -1,4 +1,7 @@
 'use strict';
+
+const e = require("express");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -10,6 +13,16 @@ module.exports = {
       },
       user_username: {
         allowNull: false,
+        type: Sequelize.STRING
+      },
+      user_isAdmin: { // 0 : utilisateur classique, 1 : Admin
+        allowNull: true,
+        defaultValue: 0,
+        type: Sequelize.INTEGER
+      },
+      user_photo: { // Photo de l'utilisateur
+        allowNull: true,
+        defaultValue: "http://localhost:3001/images/tabasco.jpg",
         type: Sequelize.STRING
       },
       user_email: {

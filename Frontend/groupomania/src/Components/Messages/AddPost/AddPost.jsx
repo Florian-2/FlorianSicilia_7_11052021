@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import routes from '../../../Config/routes';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
@@ -16,17 +17,25 @@ const initialValue = {
     content: ""
 };
 
-const handleSubmit = (data) =>
+export default function AddPost(props) 
 {
-    const token = JSON.parse(localStorage.getItem('token'));
+    const handleSubmit = (data) =>
+    {
+        const token = JSON.parse(sessionStorage.getItem('dataUser'));
 
-    axios.post('http://localhost:3001/api/post/edit', data, { headers: { Authorization: `Bearer ${token}`} })
-        .then(response => console.log(response))
-        .catch(error => console.log(error.response))
-}
+        axios.post('http://localhost:3001/api/post/edit', data, { headers: { Authorization: `Bearer ${token.token}`} })
+            .then(response => 
+            {
+                props.history.push(routes.SHOWALLPOST);
 
-export default function AddPost() 
-{
+                toast(`Publication enregistrée`, {
+                    autoClose: 5000,
+                    position: 'top-left' 
+                });
+            })
+            .catch(error => console.log(error.response))
+    } 
+
     return (
         <div className="container_message">
 
@@ -70,7 +79,7 @@ export default function AddPost()
                             <ErrorMessage name="content" component="span"/>
                         </div>
 
-                        <button type="submit">Envoyer</button>
+                        <button type="submit" disabled={!formik.isValid}>Envoyer</button>
 
                     </Form>
                 )

@@ -7,7 +7,16 @@ const { validationResult } = require('express-validator');
 const encrypt = (text) => cryptoJs.enc.Base64.stringify(cryptoJs.enc.Utf8.parse(text));
 const decrypt = (data) => cryptoJs.enc.Base64.parse(data).toString(cryptoJs.enc.Utf8);
 
-exports.signup = (req, res, next) => 
+const decoedToken = (req) => 
+{
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
+    const userId = decodedToken.userId;
+
+    return userId;
+};
+
+exports.signup = (req, res) => 
 {
     const errors = validationResult(req);
     
@@ -40,7 +49,7 @@ exports.signup = (req, res, next) =>
 };
 
 
-exports.login = (req, res, next) => 
+exports.login = (req, res) => 
 {
     const errors = validationResult(req);
     
@@ -66,11 +75,14 @@ exports.login = (req, res, next) =>
 
                         return res.status(201).json({
                             userId: user.id, 
-                            token: jwt.sign( 
-                                { userId: user.id },
-                                process.env.JWT_TOKEN,
-                                { expiresIn: '20h' }
-                            )
+                            dataUser: 
+                            {
+                                isAdmin: user.user_isAdmin,
+                                token: jwt.sign( 
+                                    { userId: user.id },
+                                    process.env.JWT_TOKEN,
+                                    { expiresIn: '20h' })
+                            }
                         });
                     }).catch(error => res.status(500).json({ error }));
             })
@@ -78,14 +90,12 @@ exports.login = (req, res, next) =>
 };
 
 // Profil utilisateur
-exports.profile = (req, res, next) => 
+exports.profile = (req, res) => 
 {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
-    const userId = decodedToken.userId;
+    const userId = decoedToken(req);
 
     User.findOne({ 
-        // attributes: ['user_username', 'user_email', 'createdAt'],
+        attributes: ['user_username', 'user_email', 'user_photo', 'createdAt'],
         where: { id: userId }
     })
         .then(user =>
@@ -96,4 +106,34 @@ exports.profile = (req, res, next) =>
                 return res.status(200).json({ dataUser });
             })
         .catch(error => res.status(500).json({ error }));
+}
+
+exports.deleteProfile = (req, res) =>
+{
+    const userId = decoedToken(req);
+    console.log(userId);
+
+    User.destroy({ where: { id: userId } })
+    .then(() => res.status(200).json({ message: "Compte supprimer" }))
+    .catch(error => res.status(500).json({ error }));
+}
+
+exports.profilePhoto = (req, res, next) => 
+{
+    const userId = decoedToken(req);
+
+    // User.updateOne({ 
+    //     where: { id: userId },
+    //     user_photo: `${req.protocol}://${req.get('host')}/api/auth/profile/photo/${req.file.filename}`
+    // })
+    //     .then(user =>
+    //         {   
+    //             const dataUser = {...user.dataValues};
+    //             dataUser.user_email = decrypt(dataUser.user_email);
+
+    //             return res.status(200).json({ dataUser });
+    //         })
+    //     .catch(error => res.status(500).json({ error }));
+
+    return res.status(200).json({mess: "réponse PUT"});
 }

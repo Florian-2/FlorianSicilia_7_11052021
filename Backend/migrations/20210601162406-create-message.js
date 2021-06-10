@@ -11,6 +11,7 @@ module.exports = {
       userId: { // id_users_message
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
         references: {
           model: 'Users',
           key: 'id'
@@ -22,7 +23,7 @@ module.exports = {
       },
       message_content: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       message_like: {
         allowNull: false,

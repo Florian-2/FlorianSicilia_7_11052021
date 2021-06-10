@@ -16,10 +16,13 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     user_username: DataTypes.STRING,
     user_email: DataTypes.STRING,
-    user_password: DataTypes.STRING
+    user_password: DataTypes.STRING,
+    user_isAdmin: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'User',
   });
   return User;
 };
+
+// La catégorie à plusieur produit et le produit appartient à une catégorie

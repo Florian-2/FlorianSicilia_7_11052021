@@ -46,15 +46,18 @@ export default function Login(props)
             {
                 setInvalid(null);
                  
-                const token = JSON.stringify(response.data.token);
-                localStorage.setItem('token', token);
-                
+                const dataUser = JSON.stringify(response.data.dataUser);
+                sessionStorage.setItem('dataUser', dataUser);
+
                 toast(`ReBonjour !`, {
                     autoClose: 5000,
                     position: 'top-left' 
                 });
 
-                props.history.push(routes.SHOWALLPOST);
+                // props.history.push(routes.SHOWALLPOST);
+			    // document.location.reload();
+                window.location.href = "http://localhost:3000/posts"
+                
             })
             .catch(error => 
             {
@@ -76,8 +79,6 @@ export default function Login(props)
 
             {
                 (formik) => {
-
-                    // console.log(formik.dirty);
 
                     return (
 

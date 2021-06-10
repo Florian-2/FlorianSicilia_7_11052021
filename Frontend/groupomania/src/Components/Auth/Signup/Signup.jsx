@@ -59,22 +59,23 @@ export default function Signup(props)
 
                 const reqLogin = await axios.post("http://localhost:3001/api/auth/login", dataForLogin);
 
-                const token = JSON.stringify(reqLogin.data.token);
-                localStorage.setItem('token', token);
+                const dataUser = JSON.stringify(reqLogin.data.dataUser);
+                sessionStorage.setItem('dataUser', dataUser);
                 
                 toast(`Bienvenu(e) ${formData.pseudo}`, {
                     autoClose: 5000,
                     position: 'top-left' 
                 });
 
-                props.history.push(routes.SHOWALLPOST);
+                // props.history.push(routes.SHOWALLPOST);
+                window.location.href = "http://localhost:3000/posts"
             }
         })
         .catch(error => 
         {
             if (error.response)
             {
-                if (error.response.data.error.original.code == "ER_DUP_ENTRY")
+                if (error.response.data.error.original.code === "ER_DUP_ENTRY")
                 {
                     const uniqueEmailMessage = 'Vous êtes déjà inscrit, veuillez vous connecter'
                     setErrorServer(uniqueEmailMessage);
