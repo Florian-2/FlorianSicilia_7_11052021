@@ -20,7 +20,7 @@ function Navigation(props)
     {
         // props.history.push(routes.SIGNUP);
         sessionStorage.clear();
-        window.location.href = "http://localhost:3000/signup";
+        window.location.href = "/signup";
     }
 
     return (

@@ -25,17 +25,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT
       },
-      message_like: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       }
     });
   },

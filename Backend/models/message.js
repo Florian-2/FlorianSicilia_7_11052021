@@ -14,14 +14,14 @@ module.exports = (sequelize, DataTypes) =>
 			foreignKey: {
 				allowNull: false,
 			}
-		})
+		}),
+		models.Message.hasMany(models.Comment)
 	}
 	};
 	Message.init({
 		userId: DataTypes.INTEGER,
 		message_title: DataTypes.STRING,
 		message_content: DataTypes.STRING,
-		message_like: DataTypes.INTEGER
 	}, 
 	{
 		sequelize,

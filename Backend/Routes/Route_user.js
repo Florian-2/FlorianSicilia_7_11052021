@@ -4,7 +4,6 @@ const { check } = require('express-validator');
 
 const userController = require('../Controllers/Ctrl_user');
 const auth = require('../AuthToken/auth_Token');
-const multer = require('../Multer/multer');
 
 router.post('/signup', 
     check('email')
@@ -32,8 +31,6 @@ router.post('/login',
 
 
 router.get('/profile', auth, userController.profile);
-
-router.put('/profile/photo', auth, multer, userController.profilePhoto);
 
 router.delete('/profile/delete', auth, userController.deleteProfile);
 

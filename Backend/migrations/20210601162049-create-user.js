@@ -20,11 +20,6 @@ module.exports = {
         defaultValue: 0,
         type: Sequelize.INTEGER
       },
-      user_photo: { // Photo de l'utilisateur
-        allowNull: true,
-        defaultValue: "http://localhost:3001/images/tabasco.jpg",
-        type: Sequelize.STRING
-      },
       user_email: {
         allowNull: false,
         unique: true,
@@ -36,11 +31,11 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       }
     });
   },

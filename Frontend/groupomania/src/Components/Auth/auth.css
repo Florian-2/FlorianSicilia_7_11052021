@@ -5,7 +5,7 @@
     overflow: hidden;
     max-width: 100%;
     width: 900px;
-    height: 450px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,6 +60,11 @@
     top: 35px;
     font-size: 1.7rem;
     cursor: pointer;
+}
+.admin label
+{
+    padding-left: 1rem;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 550px)

@@ -1,6 +1,6 @@
 .post
 {
-    max-width: 550px;
+    max-width: 650px;
     width: 100%;
     border-radius: 7px;
     overflow: hidden;
@@ -60,23 +60,59 @@
     transition: all 200ms;
 }
 
-.post .interaction .like
-{
-    border-radius: 0 5px 0 0;
-}
-.post .interaction .trash
-{
-    border-radius: 5px 0 0 0;
-}
-
-.post .interaction .like:hover
-{
-    background-color: #eff6ff;
-    color: #1877f2;
-}
-
 .post .interaction .trash:hover
 {
     background-color: rgb(255, 231, 231);
     color: red;
+}
+
+.post .interaction .edit a
+{
+    display: block;
+    width: 100%;
+    color: black;
+    transition: color 200ms;
+}
+
+.post .interaction .edit:hover
+{
+    background-color: rgb(225, 255, 225);
+}
+
+.post .container_comment
+{
+    padding: 1rem 1.4rem;
+}
+
+.post .container_comment form input
+{
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+    border: 2px solid rgba(226, 226, 226, 0.904);
+    border-radius: 7px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10);
+}
+
+.post .container_comment form span
+{
+    color: red;
+}
+
+.post .container_comment .comment
+{
+    padding: 1rem;
+    width: auto;
+    margin-top: 2rem;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.10);
+}
+
+.post .container_comment .comment p
+{
+    font-size: 1.3rem;
+}
+.post .container_comment .comment p:nth-child(1)
+{
+    font-weight: bold;
 }

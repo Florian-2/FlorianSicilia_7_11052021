@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
 	static associate(models) {
 		// define association here
 		models.Comment.belongsTo(models.Message, {
-		foreignKey: {
-			allowNull: false,
-		}
+			foreignKey: {
+				allowNull: false,
+			}
 		})
 	}
 	};
 	Comment.init({
-		id_messages_response: DataTypes.INTEGER,
+		id_message: DataTypes.INTEGER,
 		response_content: DataTypes.STRING
 	}, 
 	{

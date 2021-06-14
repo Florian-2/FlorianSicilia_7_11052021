@@ -11,18 +11,20 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import '../auth.css';
 
 const validationShema = Yup.object().shape({
-    pseudo: Yup.string().required('Pseudo requis').matches(/^[^\\\/&]+$/, "Script détecter"),
-    email: Yup.string().required("Adresse email requis").email('Adresse email invalide').matches(/^[^\\\/&]*$/, "Script détecter"),
-    password: Yup.string().required("Mot de passe requis").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Le mot de passe doit être composé d'aux moins 8 caractères dont 1 Maj, 1 Min et 1 chiffre")
+    pseudo: Yup.string().required('Pseudo requis').matches(/^[^\\/&]+$/, "Script détecter"),
+    email: Yup.string().required("Adresse email requis").email('Adresse email invalide').matches(/^[^\\/&]*$/, "Script détecter"),
+    password: Yup.string().required("Mot de passe requis").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Le mot de passe doit être composé d'aux moins 8 caractères dont 1 Maj, 1 Min et 1 chiffre"),
+    admin: Yup.boolean()
 });
 
 const initialValue = {
     pseudo: "",
     email: "",
-    password: ""
+    password: "",
+    admin: false,
 };
 
-export default function Signup(props)
+export default function Signup()
 {
     // States
     const [typeInput, setTypeInput] = useState("password");
@@ -45,7 +47,7 @@ export default function Signup(props)
     // Envoie les données du formulaire au serveur, si la réponse contient des erreurs retourner par le backend ces erreurs seront stockées dans un state puis affiché sur la page d'inscription au-dessus du formulaire
     const handleSubmit = (formData) =>
     {
-        axios.post("http://localhost:3001/api/auth/signup", formData)
+        axios.post("http://localhost:3001/api/user/signup", formData)
         .then(async (response) => 
         {
             setErrorServer(null);
@@ -57,7 +59,7 @@ export default function Signup(props)
                     password: formData.password
                 }
 
-                const reqLogin = await axios.post("http://localhost:3001/api/auth/login", dataForLogin);
+                const reqLogin = await axios.post("http://localhost:3001/api/user/login", dataForLogin);
 
                 const dataUser = JSON.stringify(reqLogin.data.dataUser);
                 sessionStorage.setItem('dataUser', dataUser);
@@ -67,8 +69,7 @@ export default function Signup(props)
                     position: 'top-left' 
                 });
 
-                // props.history.push(routes.SHOWALLPOST);
-                window.location.href = "http://localhost:3000/posts"
+                window.location.href = "/posts"
             }
         })
         .catch(error => 
@@ -155,6 +156,18 @@ export default function Signup(props)
                                     : <FontAwesomeIcon icon={faEyeSlash} className="showPassword" onClick={showPassword}></FontAwesomeIcon>
                                 }
                                 
+                            </div>
+
+                            <div className="admin">
+                                <Field
+                                    type="checkbox"
+                                    id="admin"
+                                    name="admin"
+                                />
+
+                                <label htmlFor="admin">Administrateur</label>
+
+                                <ErrorMessage name="check" component="div"/>
                             </div>
 
                             <button type="submit" disabled={!formik.isValid}>inscription</button>

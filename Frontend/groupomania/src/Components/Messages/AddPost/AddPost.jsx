@@ -8,23 +8,39 @@ import * as Yup from 'yup';
 import './addPost.css';
 
 const validationShema = Yup.object().shape({
-    header: Yup.string().required('En-tête requis').max(250, 'Ce champ ne peut pas contenir plus de 250 caractères').matches(/^[^\\\/&]+$/, "Script détecter"),
-    content: Yup.string().required('Message requis').max(20000, 'Ce champ ne peut pas contenir plus de 20 000 caractères').matches(/^[^\\\/&]+$/, "Script détecter")
+    header: Yup.string().required('En-tête requis').max(250, 'Ce champ ne peut pas contenir plus de 250 caractères').matches(/^[^\\/&]+$/, "Script détecter"),
+    content: Yup.string().required('Message requis').max(20000, 'Ce champ ne peut pas contenir plus de 20 000 caractères').matches(/^[^\\/&]+$/, "Script détecter")
 });
-
-const initialValue = {
-    header: "",
-    content: ""
-};
 
 export default function AddPost(props) 
 {
+    const initialValue = {
+        header: props.location.state && props.location.state.post ? props.location.state.post.title : "",
+        content: props.location.state && props.location.state.post ? props.location.state.post.message : "",
+    };
+
     const handleSubmit = (data) =>
     {
-        const token = JSON.parse(sessionStorage.getItem('dataUser'));
+        const dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
 
-        axios.post('http://localhost:3001/api/post/edit', data, { headers: { Authorization: `Bearer ${token.token}`} })
-            .then(response => 
+        if (props.location.state && props.location.state.post) 
+        {
+            axios.put(`http://localhost:3001/api/post/modify/${props.location.state.post.idPost}`, data, { headers: { Authorization: `Bearer ${dataUser.token}`} })
+            .then(() => 
+            {
+                props.history.push(routes.SHOWALLPOST);
+
+                toast(`Modifications enregistrées`, {
+                    autoClose: 5000,
+                    position: 'top-left' 
+                });
+            })
+            .catch(error => console.log(error.response))        
+        }
+        else
+        {
+            axios.post('http://localhost:3001/api/post/edit', data, { headers: { Authorization: `Bearer ${dataUser.token}`} })
+            .then(() => 
             {
                 props.history.push(routes.SHOWALLPOST);
 
@@ -34,6 +50,7 @@ export default function AddPost(props)
                 });
             })
             .catch(error => console.log(error.response))
+        }
     } 
 
     return (
@@ -79,7 +96,9 @@ export default function AddPost(props)
                             <ErrorMessage name="content" component="span"/>
                         </div>
 
-                        <button type="submit" disabled={!formik.isValid}>Envoyer</button>
+                        <button type="submit" disabled={!formik.isValid}>
+                            {props.location.state ? "Enregister les modification" : "Publié"}
+                        </button>
 
                     </Form>
                 )

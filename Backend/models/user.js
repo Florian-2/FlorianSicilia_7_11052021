@@ -24,5 +24,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return User;
 };
-
-// La catégorie à plusieur produit et le produit appartient à une catégorie

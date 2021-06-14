@@ -26,7 +26,9 @@ exports.signup = (req, res) =>
     }
 
     const email = encrypt(req.body.email);
-     
+
+    const admin = req.body.admin ? 1 : 0;
+
     try 
     {
         bcrypt.hash(req.body.password, 10)
@@ -35,9 +37,11 @@ exports.signup = (req, res) =>
                     const user = User.create({ 
                         user_username: req.body.pseudo, 
                         user_email: email,
-                        user_password: hash 
+                        user_password: hash,
+                        user_isAdmin: admin,
+                        createdAt: Date.now()
                     })
-                    .then(user => res.status(201).json({ user: "Votre compte a été créé avec succès, Bienvenue !" }))
+                    .then(() => res.status(201).json({ user: "Votre compte a été créé avec succès, Bienvenue !" }))
                     .catch(error => res.status(400).json({ error }))
                 })
             .catch(error => res.status(500).json({ error }));
@@ -74,9 +78,9 @@ exports.login = (req, res) =>
                             return res.status(401).json({ message: "Email ou mot de passe incorrect" })
 
                         return res.status(201).json({
-                            userId: user.id, 
                             dataUser: 
                             {
+                                userId: user.id, 
                                 isAdmin: user.user_isAdmin,
                                 token: jwt.sign( 
                                     { userId: user.id },
@@ -89,13 +93,13 @@ exports.login = (req, res) =>
         .catch(error => res.status(500).json({ error }));
 };
 
-// Profil utilisateur
+// Profile utilisateur
 exports.profile = (req, res) => 
 {
     const userId = decoedToken(req);
 
     User.findOne({ 
-        attributes: ['user_username', 'user_email', 'user_photo', 'createdAt'],
+        attributes: ['user_username', 'user_email', 'createdAt'],
         where: { id: userId }
     })
         .then(user =>
@@ -111,29 +115,8 @@ exports.profile = (req, res) =>
 exports.deleteProfile = (req, res) =>
 {
     const userId = decoedToken(req);
-    console.log(userId);
 
     User.destroy({ where: { id: userId } })
     .then(() => res.status(200).json({ message: "Compte supprimer" }))
     .catch(error => res.status(500).json({ error }));
-}
-
-exports.profilePhoto = (req, res, next) => 
-{
-    const userId = decoedToken(req);
-
-    // User.updateOne({ 
-    //     where: { id: userId },
-    //     user_photo: `${req.protocol}://${req.get('host')}/api/auth/profile/photo/${req.file.filename}`
-    // })
-    //     .then(user =>
-    //         {   
-    //             const dataUser = {...user.dataValues};
-    //             dataUser.user_email = decrypt(dataUser.user_email);
-
-    //             return res.status(200).json({ dataUser });
-    //         })
-    //     .catch(error => res.status(500).json({ error }));
-
-    return res.status(200).json({mess: "réponse PUT"});
 }

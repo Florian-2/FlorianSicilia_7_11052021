@@ -1,8 +1,9 @@
 const { Message } = require('../models');
 const { User } = require('../models');
+const { Comment } = require('../models')
 const jwt = require('jsonwebtoken');
 
-const decoedToken = (req) => 
+const decodedToken = (req) => 
 {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
@@ -13,7 +14,7 @@ const decoedToken = (req) =>
 
 exports.addPost = (req, res) =>
 {
-    const userId = decoedToken(req);
+    const userId = decodedToken(req);
 
     User.findOne({ where: { id: userId } })
         .then(user =>
@@ -27,13 +28,28 @@ exports.addPost = (req, res) =>
                     UserId: user.dataValues.id,
                     message_title: req.body.header,
                     message_content: req.body.content,
-                    message_like: 0,
+                    createdAt: Date.now()
                 })
                 .then(post => res.status(201).json({ post, message: "Votre message vient d'être publié" }))
                 .catch(error => res.status(400).json({ error }))
             })
         .catch(error => res.status(500).json({ error }));
 };
+
+exports.updatePost = (req, res) =>
+{
+    console.log(req.body);
+
+    Message.update({
+        message_title: req.body.header,
+        message_content: req.body.content,
+    },
+    { 
+        where: { id: req.params.id } 
+    })
+    .then(message => res.status(200).json({ message }))
+    .catch(error => res.status(500).json({ error }));
+}
 
 exports.getAllPosts = (req, res) =>
 {
@@ -48,10 +64,31 @@ exports.getAllPosts = (req, res) =>
     .catch(error => res.status(400).json({ error }))
 }
 
-exports.DeleteOnePost = () =>
+exports.deleteOnePost = (req, res) =>
 {
-    const userId = decoedToken(req);
-
-    console.log(req.params.id);
-    return res.status(200).json({mess: "OK"})
+    Message.destroy({ where: { id: req.params.id } })
+    .then(() => res.status(200).json({ message: "Post Supprimer" }))
+    .catch(error => res.status(500).json({ error }));
 }
+
+
+// exports.addComment = (req, res) =>
+// {
+//     const userId = decodedToken(req);
+
+//     Message.findOne({ where: { userId: userId } })
+//     .then(user => 
+//         {
+//             if (!user) 
+//             {
+//                 return res.status(401).json({ message: "Utilisateur introuvable" });
+//             }
+
+//             Comment.create({
+                
+//             })            
+            
+//             res.status(200).json({ user })
+//         })
+//     .catch(error => res.status(500).json({ error }))
+// }

@@ -13,8 +13,8 @@ import '../auth.css';
 
 
 const validationShema = Yup.object().shape({
-    email: Yup.string().required("Adresse email requis").email("Adresse email invalide").matches(/^[^\\\/&]*$/, "Script détecter"),
-    password: Yup.string().required("Mot de passe requis").matches(/^[^\\\/&]*$/, "Script détecter")
+    email: Yup.string().required("Adresse email requis").email("Adresse email invalide").matches(/^[^\\/&]*$/, "Script détecter"),
+    password: Yup.string().required("Mot de passe requis").matches(/^[^\\/&]*$/, "Script détecter")
 });
 
 const initialValue = {
@@ -41,7 +41,7 @@ export default function Login(props)
 
     const handleSubmit = (formData) =>
     {
-        axios.post("http://localhost:3001/api/auth/login", formData)
+        axios.post("http://localhost:3001/api/user/login", formData)
             .then(response => 
             {
                 setInvalid(null);
@@ -56,7 +56,7 @@ export default function Login(props)
 
                 // props.history.push(routes.SHOWALLPOST);
 			    // document.location.reload();
-                window.location.href = "http://localhost:3000/posts"
+                window.location.href = "/posts"
                 
             })
             .catch(error => 
