@@ -1,6 +1,6 @@
 import React from 'react'
 import routes from '../../../Config/routes';
-import axios from 'axios';
+import axios from '../../../Config/axios';
 import { toast } from 'react-toastify';
 import { Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
@@ -25,7 +25,7 @@ export default function AddPost(props)
 
         if (props.location.state && props.location.state.post) 
         {
-            axios.put(`http://localhost:3001/api/post/modify/${props.location.state.post.idPost}`, data, { headers: { Authorization: `Bearer ${dataUser.token}`} })
+            axios.put(`/post/modify/${props.location.state.post.idPost}`, data, { headers: { Authorization: `Bearer ${dataUser.token}`} })
             .then(() => 
             {
                 props.history.push(routes.SHOWALLPOST);
@@ -39,7 +39,7 @@ export default function AddPost(props)
         }
         else
         {
-            axios.post('http://localhost:3001/api/post/edit', data, { headers: { Authorization: `Bearer ${dataUser.token}`} })
+            axios.post('/post/edit', data, { headers: { Authorization: `Bearer ${dataUser.token}`} })
             .then(() => 
             {
                 props.history.push(routes.SHOWALLPOST);

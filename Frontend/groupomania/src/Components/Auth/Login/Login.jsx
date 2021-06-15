@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
-import axios from 'axios';
+import axios from '../../../Config/axios';
 import routes from '../../../Config/routes';
 import { Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
@@ -41,7 +41,7 @@ export default function Login(props)
 
     const handleSubmit = (formData) =>
     {
-        axios.post("http://localhost:3001/api/user/login", formData)
+        axios.post("/user/login", formData)
             .then(response => 
             {
                 setInvalid(null);

@@ -9,16 +9,24 @@ module.exports = (sequelize, DataTypes) => {
 	 */
 	static associate(models) {
 		// define association here
+		models.Comment.belongsTo(models.User, {
+			foreignKey: {
+				name: "id_user",
+				allowNull: false,
+			}
+		}),
 		models.Comment.belongsTo(models.Message, {
 			foreignKey: {
+				name: "id_message",
 				allowNull: false,
 			}
 		})
 	}
 	};
 	Comment.init({
+		id_user: DataTypes.INTEGER,
 		id_message: DataTypes.INTEGER,
-		response_content: DataTypes.STRING
+		comment_content: DataTypes.STRING
 	}, 
 	{
 		sequelize,

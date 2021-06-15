@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import routes from '../../../Config/routes';
-import axios from 'axios';
+import axios from '../../../Config/axios';
 import { Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';    
 import { toast } from 'react-toastify';
@@ -47,7 +47,7 @@ export default function Signup()
     // Envoie les données du formulaire au serveur, si la réponse contient des erreurs retourner par le backend ces erreurs seront stockées dans un state puis affiché sur la page d'inscription au-dessus du formulaire
     const handleSubmit = (formData) =>
     {
-        axios.post("http://localhost:3001/api/user/signup", formData)
+        axios.post("/user/signup", formData)
         .then(async (response) => 
         {
             setErrorServer(null);
@@ -59,7 +59,7 @@ export default function Signup()
                     password: formData.password
                 }
 
-                const reqLogin = await axios.post("http://localhost:3001/api/user/login", dataForLogin);
+                const reqLogin = await axios.post("/user/login", dataForLogin);
 
                 const dataUser = JSON.stringify(reqLogin.data.dataUser);
                 sessionStorage.setItem('dataUser', dataUser);
@@ -69,7 +69,7 @@ export default function Signup()
                     position: 'top-left' 
                 });
 
-                window.location.href = "/posts"
+                window.location.href = "/posts";
             }
         })
         .catch(error => 

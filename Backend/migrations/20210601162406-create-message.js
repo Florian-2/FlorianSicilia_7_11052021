@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: { // id_users_message
+      userId: { 
         allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',

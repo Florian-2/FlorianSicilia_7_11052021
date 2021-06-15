@@ -25,7 +25,7 @@ exports.addPost = (req, res) =>
                 }
 
                 Message.create({
-                    UserId: user.dataValues.id,
+                    userId: user.dataValues.id,
                     message_title: req.body.header,
                     message_content: req.body.content,
                     createdAt: Date.now()
@@ -36,10 +36,21 @@ exports.addPost = (req, res) =>
         .catch(error => res.status(500).json({ error }));
 };
 
+exports.addComment = (req, res) =>
+{
+    const userId = decodedToken(req);
+
+    Comment.create({
+        id_user: userId,
+        id_message: req.body[0].postId,
+        comment_content: req.body[0].content
+    })
+    .then(comment => res.status(201).json({ comment, message: "Votre commentaire vient d'être publié" }))
+    .catch(error => res.status(400).json({ error }))
+}
+
 exports.updatePost = (req, res) =>
 {
-    console.log(req.body);
-
     Message.update({
         message_title: req.body.header,
         message_content: req.body.content,
@@ -60,9 +71,15 @@ exports.getAllPosts = (req, res) =>
             attributes: ['user_username']
         }
     })
-    .then(allPosts => res.status(200).json({ allPosts }))
+    .then(allPosts => 
+    {
+        
+
+        res.status(200).json({ allPosts })
+    })
     .catch(error => res.status(400).json({ error }))
 }
+
 
 exports.deleteOnePost = (req, res) =>
 {
@@ -70,25 +87,3 @@ exports.deleteOnePost = (req, res) =>
     .then(() => res.status(200).json({ message: "Post Supprimer" }))
     .catch(error => res.status(500).json({ error }));
 }
-
-
-// exports.addComment = (req, res) =>
-// {
-//     const userId = decodedToken(req);
-
-//     Message.findOne({ where: { userId: userId } })
-//     .then(user => 
-//         {
-//             if (!user) 
-//             {
-//                 return res.status(401).json({ message: "Utilisateur introuvable" });
-//             }
-
-//             Comment.create({
-                
-//             })            
-            
-//             res.status(200).json({ user })
-//         })
-//     .catch(error => res.status(500).json({ error }))
-// }

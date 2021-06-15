@@ -8,6 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      id_user: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
       id_message: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -16,7 +24,7 @@ module.exports = {
           key: 'id'
         }
       },
-      response_content: {
+      comment_content: {
         allowNull: false,
         type: Sequelize.STRING
       },

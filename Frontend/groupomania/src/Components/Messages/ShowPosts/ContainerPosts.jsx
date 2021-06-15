@@ -1,40 +1,39 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import axios from '../../../Config/axios';
 
-import './containerPost.css';
 import OnePost from './OnePost/OnePost';
 import Spinner from '../../UI/Spinner/Spinner';
+import './containerPost.css';
 
 export default function ShowPosts() 
 {
+    // States
     const [allPost, setAllPost] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Variable
     const dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
 
+    // Fonctions
     useEffect(() => getAllPosts(), []);
     
     const getAllPosts = async () =>
     {
-        const response = await axios.get("http://localhost:3001/api/post/showAllPosts", { headers: { Authorization: `Bearer ${dataUser.token}`} })
+        const response = await axios.get("/post/showAllPosts", { headers: { Authorization: `Bearer ${dataUser.token}`} })
         setAllPost(response.data.allPosts);
         setLoading(false);
+
+        // console.log(response.data);
     }
 
     const handleDeletePost = (idPost) =>
     {
-        axios.delete(`http://localhost:3001/api/post/delete/${idPost}`, { headers: { Authorization: `Bearer ${dataUser.token}`} })
+        axios.delete(`/post/delete/${idPost}`, { headers: { Authorization: `Bearer ${dataUser.token}`} })
         .then(() => getAllPosts())
         .catch(error => console.log(error.response))
     }
 
-    const handleUpdatePost = (idPost) =>
-    {
-        axios.put(`http://localhost:3001/api/post/modify/${idPost}`, test, { headers: { Authorization: `Bearer ${dataUser.token}`} })
-        .then(response => console.log(response))
-        .catch(error => console.log(error.response))
-    }
-
+    // Génère une carte pour chaque publications
     const onePost = allPost.map((post) => 
     {
         return (
@@ -42,13 +41,13 @@ export default function ShowPosts()
                 key={post.id}
                 content={post}
                 authorization={post.UserId}
+                postId={post.id}
                 remove={() => handleDeletePost(post.id)}
-                updateId={post.id}
-                update={() => handleUpdatePost(post.id)}
             />
         )
     });
 
+    // Rendu
     return (
         <div className="container_posts">
             {!loading ? onePost : <Spinner/>}
