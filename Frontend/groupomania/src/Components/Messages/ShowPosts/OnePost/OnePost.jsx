@@ -25,6 +25,7 @@ export default function OnePost(props)
     // Variables
     const dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
     const [date, time] = props.content.createdAt.split(' ');
+    const listCommentApi = [...props.content.Comments].reverse();
 
     /* Fonction
         Ajout d'un commentaire sous une publication
@@ -32,18 +33,18 @@ export default function OnePost(props)
     const handleSumbit = (value, propsSubmit) =>
     {
         const copyComment = [...comment];
-        copyComment.length = 0;
-        copyComment.push({content: value.comment, postId: props.postId})
+        copyComment.push({content: value.comment, postId: props.postId, username: dataUser.username})
 
+        const lastComment = copyComment[copyComment.length - 1];
+        
         setComment(copyComment)
         propsSubmit.resetForm();
         
-        axios.post("/post/edit/comment", copyComment, { headers: { Authorization: `Bearer ${dataUser.token}`} })
+        axios.post("/post/edit/comment", lastComment, { headers: { Authorization: `Bearer ${dataUser.token}`} })
         .then(response => console.log(response))
         .catch(error => console.log(error.response))
     }
-    
-    // Rendu
+
     return (
         <div className="post" >
 
@@ -107,11 +108,21 @@ export default function OnePost(props)
 
                 </Formik>
 
+                {listCommentApi.map((element, index) => 
+                {
+                    return (
+                        <div key={index} className="comment">
+                            <p>{element.comment_username}</p>
+                            <p>{element.comment_content}</p>
+                        </div>
+                    )
+                })}
+                
                 {comment.map((element, index) => 
                 {
                     return (
                         <div key={index} className="comment">
-                            <p>Florian</p>
+                            <p>{dataUser.username}</p>
                             <p>{element.content}</p>
                         </div>
                     )

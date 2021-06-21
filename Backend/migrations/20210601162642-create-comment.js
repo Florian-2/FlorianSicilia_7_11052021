@@ -10,19 +10,25 @@ module.exports = {
       },
       id_user: {
         allowNull: false,
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
           key: 'id'
         }
       },
-      id_message: {
+      MessageId: {
         allowNull: false,
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
         references: {
           model: 'Messages',
           key: 'id'
         }
+      },
+      comment_username: {
+        allowNull: false,
+        type: Sequelize.STRING
       },
       comment_content: {
         allowNull: false,

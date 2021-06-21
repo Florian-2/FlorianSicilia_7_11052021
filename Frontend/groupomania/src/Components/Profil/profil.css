@@ -11,16 +11,13 @@
     border-radius: 8px;
 }
 
-.user {
-    display: flex;
-    gap: 30px;
-}
-
-.user .info_user
+.info_user
 {
-    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-weight: bold;
     font-size: 2.2rem;
-    font-weight: 600;
 }
 
 .container_profile .remove_account button

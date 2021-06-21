@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import './profil.css';
 
+// Masquer tous les caractères qui viennent avant le "@"
 const maskEmail = (email) =>
 {
     let email1 = email.split('@')[0].split('');
@@ -25,6 +26,7 @@ export default function Profil()
 
     const dataSessionUser = JSON.parse(sessionStorage.getItem('dataUser'));
 
+    // Récupère les infos de l'utilisateur
     const userProfile = async () =>
     {
         const response = await axios.get("http://localhost:3001/api/user/profile", { headers: { Authorization: `Bearer ${dataSessionUser.token}`} })
@@ -36,6 +38,7 @@ export default function Profil()
         setUser(dataUser);
     }
 
+    // Supprimer le compte
     const handleDeleteUser = () =>
     {
         axios.delete("http://localhost:3001/api/user/profile/delete", { headers: { Authorization: `Bearer ${dataSessionUser.token}`} })
@@ -51,8 +54,8 @@ export default function Profil()
 
             <div className="user">
                 <div className="info_user">
-                    <p>{user.user_username}</p>
-                    <p>{user.user_email}</p>
+                    <p>Pseudo: {user.user_username}</p>
+                    <p>Adresse mail: {user.user_email}</p>
                     <p>Compte créé le {user.createdAt}</p>
                     {dataSessionUser.isAdmin === 1 && <p>Rôle : Administrateur</p>}
                 </div>

@@ -18,10 +18,11 @@ function Navigation(props)
 
     const logout = () =>
     {
-        // props.history.push(routes.SIGNUP);
         sessionStorage.clear();
         window.location.href = "/signup";
     }
+
+    // console.log(props.location.state.post)
 
     return (
         <ul className={classes.Navigation}>
@@ -33,7 +34,9 @@ function Navigation(props)
 
             {connected && (
                 <li className={classes.NavigationItem}>
-                    <NavLink exact to={routes.ADDPOST} activeClassName={classes.active}>Ajouter un posts</NavLink>
+                    <NavLink exact to={routes.ADDPOST} activeClassName={classes.active}>
+                        {props.location.state && props.location.state.post ? "Modifier le post" : "Ajouter un post"}
+                    </NavLink>
                 </li>
             )}
 

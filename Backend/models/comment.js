@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 		}),
 		models.Comment.belongsTo(models.Message, {
 			foreignKey: {
-				name: "id_message",
+				// name: "id_message",
 				allowNull: false,
 			}
 		})
@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
 	};
 	Comment.init({
 		id_user: DataTypes.INTEGER,
-		id_message: DataTypes.INTEGER,
+		MessageId: DataTypes.INTEGER,
+		comment_username: DataTypes.STRING,
 		comment_content: DataTypes.STRING
 	}, 
 	{

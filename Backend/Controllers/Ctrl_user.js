@@ -81,6 +81,7 @@ exports.login = (req, res) =>
                             dataUser: 
                             {
                                 userId: user.id, 
+                                username: user.user_username,
                                 isAdmin: user.user_isAdmin,
                                 token: jwt.sign( 
                                     { userId: user.id },

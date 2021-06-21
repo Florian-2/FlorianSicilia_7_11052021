@@ -15,15 +15,15 @@ export default function ShowPosts()
     const dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
 
     // Fonctions
-    useEffect(() => getAllPosts(), []);
+    useEffect(() => {
+        getAllPosts()
+    }, []);
     
     const getAllPosts = async () =>
     {
         const response = await axios.get("/post/showAllPosts", { headers: { Authorization: `Bearer ${dataUser.token}`} })
         setAllPost(response.data.allPosts);
         setLoading(false);
-
-        // console.log(response.data);
     }
 
     const handleDeletePost = (idPost) =>
@@ -47,7 +47,6 @@ export default function ShowPosts()
         )
     });
 
-    // Rendu
     return (
         <div className="container_posts">
             {!loading ? onePost : <Spinner/>}

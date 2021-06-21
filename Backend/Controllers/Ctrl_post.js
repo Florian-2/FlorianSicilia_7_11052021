@@ -42,10 +42,11 @@ exports.addComment = (req, res) =>
 
     Comment.create({
         id_user: userId,
-        id_message: req.body[0].postId,
-        comment_content: req.body[0].content
+        MessageId: req.body.postId,
+        comment_username: req.body.username,
+        comment_content: req.body.content
     })
-    .then(comment => res.status(201).json({ comment, message: "Votre commentaire vient d'être publié" }))
+    .then(comment => res.status(201).json({ comment }))
     .catch(error => res.status(400).json({ error }))
 }
 
@@ -66,17 +67,19 @@ exports.getAllPosts = (req, res) =>
 {
     Message.findAll({
         order:[['createdAt', 'DESC']],
-        include: {
-            model: User,
-            attributes: ['user_username']
-        }
+        include: 
+        [
+            {
+                model: User,
+                attributes: ['user_username']
+            },
+            {
+                model: Comment,
+                attributes: ['id', 'id_user', 'MessageId', 'comment_content', 'comment_username']
+            }
+        ]
     })
-    .then(allPosts => 
-    {
-        
-
-        res.status(200).json({ allPosts })
-    })
+    .then(allPosts => res.status(200).json({ allPosts }))
     .catch(error => res.status(400).json({ error }))
 }
 
