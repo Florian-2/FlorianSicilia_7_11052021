@@ -1,4 +1,4 @@
-# Créez un réseau social d’entreprise
+# P7 Créez un réseau social d’entreprise
 
 ## Prérequis
 Mysql, Sequelize cli
