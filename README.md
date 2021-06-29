@@ -25,7 +25,7 @@ __4.__ `sequelize db:migrate` pour créer les tables __Mysql__
 
 Dans le dossier __Backend__ vous trouverez un dossier __config__ contenant un fichier de configuration [config.json](Backend/config/config.json) pour la connexion au service __Mysql__, si les informations par défaut pour le __username__ et le __password__ ne sont pas correctes modifiées les valeurs en fonction de la configuration de votre service Mysql.
 
-## Lancer l'applciation
+## Lancer l'application
 
 Pour lancer l'application :
 
