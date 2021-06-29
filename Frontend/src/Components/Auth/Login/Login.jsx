@@ -51,7 +51,7 @@ export default function Login(props)
 
                 toast(`ReBonjour !`, {
                     autoClose: 5000,
-                    position: 'top-left' 
+                    position: 'bottom-left' 
                 });
 
                 // props.history.push(routes.SHOWALLPOST);

@@ -32,7 +32,7 @@ export default function AddPost(props)
 
                 toast(`Modifications enregistrées`, {
                     autoClose: 5000,
-                    position: 'top-left' 
+                    position: 'bottom-left' 
                 });
             })
             .catch(error => console.log(error.response))        
@@ -46,7 +46,7 @@ export default function AddPost(props)
 
                 toast(`Publication enregistrée`, {
                     autoClose: 5000,
-                    position: 'top-left' 
+                    position: 'bottom-left' 
                 });
             })
             .catch(error => console.log(error.response))

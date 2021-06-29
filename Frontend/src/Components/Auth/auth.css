@@ -55,6 +55,12 @@
     position: relative;
 }
 
+.containersignup form .form_group span
+{
+    font-size: 1.25rem;
+    color: #ee0010;
+}
+
 .containersignup form .form_group .showPassword
 {
     position: absolute;

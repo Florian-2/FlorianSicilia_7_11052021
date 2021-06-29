@@ -25,6 +25,11 @@
     font-weight: bold;
 }
 
+.post .username span
+{
+    font-size: 1.2rem;
+}
+
 .post .content
 {
     padding: 0.5rem 1.4rem 1rem 1.4rem;
@@ -96,7 +101,8 @@
 
 .post .container_comment form span
 {
-    color: red;
+    color: #ec0010;
+    font-size: 1.3rem;
 }
 
 .post .container_comment .comment

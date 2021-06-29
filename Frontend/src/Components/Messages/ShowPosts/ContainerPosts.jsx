@@ -16,7 +16,7 @@ export default function ShowPosts()
 
     // Fonctions
     useEffect(() => {
-        getAllPosts()
+        getAllPosts();
     }, []);
     
     const getAllPosts = async () =>

@@ -65,15 +65,16 @@ export default function OnePost(props)
                     <FontAwesomeIcon  icon={faTrash} className="icon_trash" />
                 </div>
                 <div className="edit" title="Modifier cette publication">
-                    <Link to={{
-                        pathname: routes.ADDPOST,
-                        state: { 
-                            post: {
-                                idPost: props.postId,
-                                title: props.content.message_title,
-                                message: props.content.message_content
+                    <Link aria-label="modifier cette publication" 
+                        to={{
+                            pathname: routes.ADDPOST,
+                            state: { 
+                                post: {
+                                    idPost: props.postId,
+                                    title: props.content.message_title,
+                                    message: props.content.message_content
+                                }
                             }
-                        }
                     }}><FontAwesomeIcon icon={faEdit} className="icon_edit" /></Link>
                 </div>                
             </div>              

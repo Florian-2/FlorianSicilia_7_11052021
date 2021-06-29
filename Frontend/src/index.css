@@ -11,6 +11,11 @@
 	background-color: #ff5964;
 }
 
+:focus
+{
+	outline: black solid 2px;
+}
+
 html
 {
 	font-size: 10px;

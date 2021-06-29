@@ -54,9 +54,9 @@ export default function Profil()
 
             <div className="user">
                 <div className="info_user">
-                    <p>Pseudo: {user.user_username}</p>
-                    <p>Adresse mail: {user.user_email}</p>
-                    <p>Compte créé le {user.createdAt}</p>
+                    <h3>Pseudo: {user.user_username}</h3>
+                    <h3>Adresse mail: {user.user_email}</h3>
+                    <h3>Compte créé le {user.createdAt}</h3>
                     {dataSessionUser.isAdmin === 1 && <p>Rôle : Administrateur</p>}
                 </div>
             </div>

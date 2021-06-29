@@ -25,6 +25,7 @@ form .form_group label
     display: block;
     max-width: 100%;
     min-width: 200px;
+    font-family: Arial, Helvetica, sans-serif;
     width: 900px;
     height: 150px;
     min-height: 100px;
