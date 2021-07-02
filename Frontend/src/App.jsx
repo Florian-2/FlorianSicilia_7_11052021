@@ -35,7 +35,6 @@ export default function App()
 					<Route exact path={routes.LOGIN} component={Login}/>
 					{connected ? <Route exact path={routes.SHOWALLPOST} component={ShowPosts}/> : <Route exact path={routes.SHOWALLPOST} render={() => <h1>Vous devez être connecté pour voir les publications</h1>}/>}
 					{connected ? <Route exact path={routes.ADDPOST} component={AddPost}/> : <Route exact path={routes.ADDPOST} render={() => <h1>Vous devez être connecté pour ajouter une publication</h1>}/>}
-					{/* <Route exact path={routes.ADDPOST + ":id"} render={() => <h1>Modif post</h1>}/> */}
 					{connected ? <Route exact path={routes.PROFIL} component={Profil}/> : <Route exact path={routes.PROFIL} render={() => <h1>Vous devez être connecté pour accéder à votre profil</h1>}/>}
 					<Route render={() => <h1>Page introuvable</h1>} />
 				</Switch>

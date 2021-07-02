@@ -13,7 +13,7 @@ import '../auth.css';
 const validationShema = Yup.object().shape({
     pseudo: Yup.string().required('Pseudo requis').matches(/^[^\\/&]+$/, "Script détecter"),
     email: Yup.string().required("Adresse email requis").email('Adresse email invalide').matches(/^[^\\/&]*$/, "Script détecter"),
-    password: Yup.string().required("Mot de passe requis").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Le mot de passe doit être composé d'aux moins 8 caractères dont 1 Maj, 1 Min et 1 chiffre"),
+    password: Yup.string().required("Mot de passe requis").matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Le mot de passe doit être composé d'au moins 8 caractères dont 1 Maj, 1 Min et 1 chiffre"),
     admin: Yup.boolean()
 });
 

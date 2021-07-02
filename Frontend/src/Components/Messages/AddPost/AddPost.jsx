@@ -9,7 +9,7 @@ import './addPost.css';
 
 const validationShema = Yup.object().shape({
     header: Yup.string().required('En-tête requis').max(250, 'Ce champ ne peut pas contenir plus de 250 caractères').matches(/^[^\\/&]+$/, "Script détecter"),
-    content: Yup.string().required('Message requis').max(20000, 'Ce champ ne peut pas contenir plus de 20 000 caractères').matches(/^[^\\/&]+$/, "Script détecter")
+    content: Yup.string().required('Message requis').max(2000, 'Ce champ ne peut pas contenir plus de 2000 caractères').matches(/^[^\\/&]+$/, "Script détecter")
 });
 
 export default function AddPost(props) 
